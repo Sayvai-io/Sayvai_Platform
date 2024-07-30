@@ -11,16 +11,16 @@ const InterptSensitivity: React.FC = () => {
 
   return (
     <div>
-      <label className="mb-3 block text-md font-medium text-black dark:text-white">
+      <label className="text-md mb-3 block font-medium text-black dark:text-white">
         LLM Option
       </label>
       <select
         value={selectedOption}
         onChange={handleChange}
-        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+        className="border-gray-300 dark:border-gray-700 dark:bg-gray-800 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-white"
       >
-        <option value="On">On</option>
-        <option value="Off">Off</option>
+        <option value="On">High</option>
+        <option value="Off">Low</option>
       </select>
     </div>
   );
