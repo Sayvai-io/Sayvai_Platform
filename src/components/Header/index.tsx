@@ -69,7 +69,7 @@ const Header = (props: {
       
           <div className="rounded-md border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-white
           ">
-            <div className="border-b border-stroke px-7 py-2 flex items-center gap-2">
+            {/* <div className="border-b border-stroke px-7 py-2 flex items-center gap-2">
               <svg 
                
                xmlns="http://www.w3.org/2000/svg" 
@@ -87,7 +87,7 @@ const Header = (props: {
                Add card
               </button>
             </div>
-       
+        */}
 
           
           

@@ -14,6 +14,16 @@ const LLm_Config = () => {
             <div className="flex flex-col gap-5.5 p-6.5">
             <div>
                 <label className="mb-3 block text-md font-medium text-black dark:text-white">
+                Initial Message
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="Default textarea"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-[#16C3A6] active:border-[#16C3A6] disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-[#16C3A6]"
+                ></textarea>
+             </div>
+             <div>
+                <label className="mb-3 block text-md font-medium text-black dark:text-white">
                 Agent Prompt
                 </label>
                 <textarea
