@@ -5,15 +5,23 @@ import AgentModal from "@/components/Model/AgentModel";
 
 interface AddAgentProps {
   onCloseModal: () => void;
-  onOpenAgentConfig: () => void; // Add this prop
+  onOpenAgentConfig: () => void;
 }
 
 const AddAgent: React.FC<AddAgentProps> = ({ onCloseModal, onOpenAgentConfig }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [agents, setAgents] = useState<string[]>([]);
+
   const openModal = () => setIsModalOpen(true);
+
   const closeModal = () => {
     setIsModalOpen(false);
     onCloseModal();
+    addAgent();
+  };
+
+  const addAgent = () => {
+    setAgents([...agents, `Agent ${agents.length + 1} created jgjhkjhbkjjdfkhksgjlifaklsj`]);
   };
 
   return (
@@ -35,9 +43,28 @@ const AddAgent: React.FC<AddAgentProps> = ({ onCloseModal, onOpenAgentConfig }) 
         <AgentModal 
           isOpen={isModalOpen} 
           onClose={closeModal} 
-          onOpenAgentConfig={onOpenAgentConfig} // Pass the new prop here
+          onOpenAgentConfig={onOpenAgentConfig} 
         />
+        <div className="mt-4">
+         {agents.map((agentMessage, index) => (
+        <button
+           key={index}
+           className="flex items-center bg-[#70cac1] text-white p-1.5 rounded mt-2"
+           style={{
+           width: '180px',
+           overflow: 'hidden',
+           whiteSpace: 'nowrap',
+          }}
+        >
+         <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+         {agentMessage}
+        </div>
+        </button>
+       ))}
       </div>
+
+      </div>
+      
     </div>
   );
 };
