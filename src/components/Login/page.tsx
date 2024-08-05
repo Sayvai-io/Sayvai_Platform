@@ -85,6 +85,8 @@ const Login: React.FC<{ setShowSignup: (show: boolean) => void }> = ({
     if (error) {
       setError(error.message);
     } else {
+      console.log(data.session?.access_token);
+      console.log(data.session?.refresh_token);
       localStorage.setItem("supabaseSession", JSON.stringify(data.session));
       setIsLoggedIn(true);
     }

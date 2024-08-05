@@ -10,7 +10,17 @@ const Language: React.FC = () => {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/get_languages`);
+        const session = localStorage.getItem("supabaseSession");
+        if (!session) {
+          throw new Error("No session found");
+        }
+        const { access_token } = JSON.parse(session);
+
+        const response = await fetch(`${BASE_URL}/get_languages`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
         const data = await response.json();
         const languageList = data.map(
           (item: { language: string }) => item.language,
