@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import ProfileModal from '../Model/ProfileModal';
 import DropdownUser from "../Header/DropdownUser";
 import SelectProfile from "./SelectProfile/SelectProfile";
+
 
 const TTS_Config: React.FC = () => {
     const [inputValue, setInputValue] = useState(""); // State to store the input value
     const [fixedWord, setFixedWord] = useState<string | null>(null); // State to store the fixed word
     const inputRef = useRef<HTMLInputElement>(null); // Ref to the input element
     const wordRef = useRef<HTMLDivElement>(null); // Ref to the word display area
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
   
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value); // Update the input value as the user types
@@ -124,7 +132,38 @@ const TTS_Config: React.FC = () => {
         
       </div>
       <p className="mt-2 mr-2 mb-4 text-sm">Agent ID: a1c43e3c4d963fdce006e23bfcee9cea</p>
-      <SelectProfile />
+      <div>
+      <Link
+        className="flex items-center gap-4"
+        href="#"
+        onClick={openModal}
+      >
+        <span className="h-10 w-10 rounded-full">
+          <Image
+            width={112}
+            height={112}
+            src={"/images/user/user-01.png"}
+            alt="User"
+          />
+        </span>
+        <svg
+          className="hidden fill-current sm:block"
+          width="12"
+          height="8"
+          viewBox="0 0 12 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M0.410765 0.910734C0.736202 0.585297 1.26384 0.585297 1.58928 0.910734L6.00002 5.32148L10.4108 0.910734C10.7362 0.585297 11.2638 0.585297 11.5893 0.910734C11.9147 1.23617 11.9147 1.76381 11.5893 2.08924L6.58928 7.08924C6.26384 7.41468 5.7362 7.41468 5.41077 7.08924L0.410765 2.08924C0.0853277 1.76381 0.0853277 1.23617 0.410765 0.910734Z"
+          />
+        </svg>
+      </Link>
+
+      <ProfileModal isOpen={isModalOpen} onClose={closeModal} />
+    </div>
     </div>
   );
 };
