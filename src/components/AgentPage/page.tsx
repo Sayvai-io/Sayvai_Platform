@@ -17,6 +17,10 @@ const AgentPage: React.FC = () => {
     llm_model_id: string;
     model_name: string;
   } | null>(null);
+  const [sttConfig, setSttConfig] = useState<{
+    use_backchannels: boolean;
+    end_conversation_on_goodbye: boolean;
+  } | null>(null);
   const [agentId, setAgentId] = useState<string | null>(null); // Add agentId state
 
   const handleCloseModal = () => {
@@ -35,6 +39,7 @@ const AgentPage: React.FC = () => {
           onCloseModal={() => setIsModalOpen(true)}
           onOpenAgentConfig={handleOpenAgentConfig}
           setLlmConfig={setLlmConfig}
+          setSttConfig={setSttConfig}
           setAgentId={setAgentId} // Ensure agentId is set
         />
         <AgentModal
@@ -42,8 +47,12 @@ const AgentPage: React.FC = () => {
           onClose={handleCloseModal}
           onOpenAgentConfig={handleOpenAgentConfig}
         />
-        {llmConfig && agentId ? (
-          <AgentConfig agent_id={agentId} llmConfig={llmConfig} />
+        {llmConfig && agentId && sttConfig ? (
+          <AgentConfig
+            agent_id={agentId}
+            llmConfig={llmConfig}
+            sttConfig={sttConfig}
+          />
         ) : (
           <NoAgent />
         )}

@@ -16,9 +16,17 @@ interface FormElementsProps {
     llm_model_id: string;
     model_name: string;
   };
+  sttConfig: {
+    use_backchannels: boolean;
+    end_conversation_on_goodbye: boolean;
+  };
 }
 
-const FormElements: React.FC<FormElementsProps> = ({ agent_id, llmConfig }) => {
+const FormElements: React.FC<FormElementsProps> = ({
+  agent_id,
+  llmConfig,
+  sttConfig,
+}) => {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
       <div className="flex flex-col gap-3 sm:col-span-12">
@@ -41,7 +49,7 @@ const FormElements: React.FC<FormElementsProps> = ({ agent_id, llmConfig }) => {
         </div>
 
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <Stt_Config />
+          <Stt_Config sttConfig={sttConfig} />
         </div>
       </div>
     </div>

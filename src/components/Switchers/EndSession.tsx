@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const EndSession = () => {
-  const [enabled, setEnabled] = useState(false);
+interface EndSessionProps {
+  end_conversation_on_goodbye: boolean;
+}
+
+const EndSession: React.FC<EndSessionProps> = ({
+  end_conversation_on_goodbye,
+}) => {
+  const [enabled, setEnabled] = useState(end_conversation_on_goodbye);
 
   return (
     <div className="flex items-center justify-between">

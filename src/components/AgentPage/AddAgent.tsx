@@ -17,12 +17,19 @@ interface AddAgentProps {
       model_name: string;
     } | null>
   >;
+  setSttConfig: React.Dispatch<
+    React.SetStateAction<{
+      use_backchannels: boolean;
+      end_conversation_on_goodbye: boolean;
+    } | null>
+  >;
 }
 
 const AddAgent: React.FC<AddAgentProps> = ({
   onCloseModal,
   onOpenAgentConfig,
   setLlmConfig,
+  setSttConfig,
   setAgentId, // Add setAgentId prop
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,7 +94,13 @@ const AddAgent: React.FC<AddAgentProps> = ({
       }
 
       const configData = await response.json();
-      const { initial_message, prompt_preamble, llm_model_id } = configData;
+      const {
+        initial_message,
+        prompt_preamble,
+        llm_model_id,
+        use_backchannels,
+        end_conversation_on_goodbye,
+      } = configData;
 
       const modelResponse = await fetch(`${BASE_URL}/get_models`, {
         headers: {
@@ -106,6 +119,8 @@ const AddAgent: React.FC<AddAgentProps> = ({
         llm_model_id,
         model_name: model ? model.name : "Unknown",
       });
+
+      setSttConfig({ use_backchannels, end_conversation_on_goodbye });
 
       setAgentId(agentId); // Set agentId
       onOpenAgentConfig();

@@ -12,7 +12,7 @@ const InterptSensitivity: React.FC = () => {
   return (
     <div>
       <label className="text-md mb-3 block font-medium text-black dark:text-white">
-        LLM Option
+        Interrupt Sensitivity
       </label>
       <select
         value={selectedOption}

@@ -21,7 +21,8 @@ const SwitcherTwo = () => {
           <div className="h-3 w-9 rounded-full bg-meta-9 shadow-inner dark:bg-[#5A616B]"></div>
           <div
             className={`dot absolute -top-1 left-0 h-5 w-5 rounded-full bg-white shadow-switch-1 transition ${
-              enabled && "!right-0 !translate-x-full !bg-[#16C3A6] dark:!bg-white"
+              enabled &&
+              "!right-0 !translate-x-full !bg-[#16C3A6] dark:!bg-white"
             }`}
           ></div>
         </div>

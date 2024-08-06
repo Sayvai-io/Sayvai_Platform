@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Usebackchannels = () => {
-  const [enabled, setEnabled] = useState(false);
+interface UsebackchannelsProps {
+  use_backchannels: boolean;
+}
+
+const Usebackchannels: React.FC<UsebackchannelsProps> = ({
+  use_backchannels,
+}) => {
+  const [enabled, setEnabled] = useState(use_backchannels);
   const [optOut, setOptOut] = useState(false); // New state variable
+
+  useEffect(() => {
+    console.log("Midhun");
+    console.log(enabled);
+    console.log("Midhun");
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">

@@ -9,7 +9,14 @@ import EndSession from "../Switchers/EndSession";
 import InterptSensitivity from "../Switchers/InterptSensitivity";
 import Language from "@/components/Switchers/Language";
 
-const Stt_Config = () => {
+interface Stt_ConfigProps {
+  sttConfig: {
+    use_backchannels: boolean;
+    end_conversation_on_goodbye: boolean;
+  };
+}
+
+const Stt_Config: React.FC<Stt_ConfigProps> = ({ sttConfig }) => {
   const [volume, setVolume] = useState(0.05);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(parseFloat(event.target.value));
@@ -33,8 +40,8 @@ const Stt_Config = () => {
           volume={volume}
           handleVolumeChange={handleVolumeChange}
         />
-        <Usebackchannels />
-        <EndSession />
+        <Usebackchannels {...sttConfig} />
+        <EndSession {...sttConfig} />
         <InterptSensitivity />
         <Language />
         {/* <div className="flex items-center justify-between">
