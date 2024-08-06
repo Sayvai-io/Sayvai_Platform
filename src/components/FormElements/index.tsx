@@ -49,7 +49,7 @@ const FormElements: React.FC<FormElementsProps> = ({
         </div>
 
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <Stt_Config sttConfig={sttConfig} />
+          <Stt_Config agent_id={agent_id} sttConfig={sttConfig} />
         </div>
       </div>
     </div>

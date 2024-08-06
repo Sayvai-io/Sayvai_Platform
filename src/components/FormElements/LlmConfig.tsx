@@ -13,6 +13,8 @@ interface LLMConfigProps {
   prompt_preamble: string;
   llm_model_id: string;
   model_name: string;
+  use_backchannel: boolean;
+  end_session_with_goodbye: boolean;
 }
 
 const LLMConfig: React.FC<LLMConfigProps> = ({
@@ -21,10 +23,17 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
   prompt_preamble: promptPreambleProp,
   llm_model_id,
   model_name,
+  use_backchannel: useBackchannelProp,
+  end_session_with_goodbye: endSessionWithGoodbyeProp,
 }) => {
   const [initialMessage, setInitialMessage] = useState(initialMessageProp);
   const [promptPreamble, setPromptPreamble] = useState(promptPreambleProp);
   const [selectedModel, setSelectedModel] = useState(llm_model_id);
+  const [useBackchannel, setUseBackchannel] = useState(useBackchannelProp);
+  const [endSessionWithGoodbye, setEndSessionWithGoodbye] = useState(
+    endSessionWithGoodbyeProp,
+  );
+  const [isDirty, setIsDirty] = useState(false);
 
   const updateConfig = async () => {
     try {
@@ -38,6 +47,8 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
         initial_message: initialMessage,
         prompt_preamble: promptPreamble,
         llm_model_id: selectedModel,
+        use_backchannel: useBackchannel,
+        end_session_with_goodbye: endSessionWithGoodbye,
       };
 
       await fetch(`${BASE_URL}/change_llm_configurations`, {
@@ -48,6 +59,7 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
         },
         body: JSON.stringify({ agent_id, new_config: newConfig }),
       });
+      setIsDirty(false);
     } catch (error) {
       console.error("Error updating LLM configuration:", error);
     }
@@ -57,16 +69,19 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setInitialMessage(event.target.value);
+    setIsDirty(true);
   };
 
   const handlePromptPreambleChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setPromptPreamble(event.target.value);
+    setIsDirty(true);
   };
 
   const handleModelChange = (modelId: string) => {
     setSelectedModel(modelId);
+    setIsDirty(true);
   };
 
   const handleSave = () => {
@@ -107,33 +122,16 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
         onModelChange={handleModelChange}
       />
 
-      <div>
-        <label className="text-md mb-3 block font-medium text-black dark:text-white">
-          Who Speaks First
-        </label>
-        <div className="flex flex-col gap-5.5 p-0">
-          <SelectGroupTwo />
-        </div>
-      </div>
+      <div></div>
 
-      <div>
-        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-          Disabled label
-        </label>
-        <input
-          type="text"
-          placeholder="Disabled label"
-          disabled
-          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
-        />
-      </div>
-
-      <button
-        onClick={handleSave}
-        className="mt-4 rounded bg-[#16C3A6] px-4 py-2 text-white"
-      >
-        Save
-      </button>
+      {isDirty && (
+        <button
+          onClick={handleSave}
+          className="mt-4 rounded bg-[#16C3A6] px-4 py-2 text-white"
+        >
+          Save
+        </button>
+      )}
     </div>
   );
 };

@@ -1,12 +1,18 @@
-"use client";
+// src/components/Switchers/InterptSensitivity.tsx
 
-import React, { useState } from "react";
+import React from "react";
 
-const InterptSensitivity: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState("Off");
+interface InterptSensitivityProps {
+  interrupt_sensitivity: string;
+  onChange: (newValue: string) => void;
+}
 
+const InterptSensitivity: React.FC<InterptSensitivityProps> = ({
+  interrupt_sensitivity,
+  onChange,
+}) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+    onChange(event.target.value);
   };
 
   return (
@@ -15,12 +21,12 @@ const InterptSensitivity: React.FC = () => {
         Interrupt Sensitivity
       </label>
       <select
-        value={selectedOption}
+        value={interrupt_sensitivity}
         onChange={handleChange}
-        className="border-gray-300 dark:border-gray-700 dark:bg-gray-800 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-white"
+        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-[#16C3A6] active:border-[#16C3A6] dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-[#16C3A6]"
       >
-        <option value="On">High</option>
-        <option value="Off">Low</option>
+        <option value="low">Low</option>
+        <option value="high">High</option>
       </select>
     </div>
   );

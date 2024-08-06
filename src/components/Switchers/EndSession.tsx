@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 
 interface EndSessionProps {
   end_conversation_on_goodbye: boolean;
+  onChange: (value: boolean) => void;
 }
 
 const EndSession: React.FC<EndSessionProps> = ({
   end_conversation_on_goodbye,
+  onChange,
 }) => {
   const [enabled, setEnabled] = useState(end_conversation_on_goodbye);
 
@@ -24,6 +26,7 @@ const EndSession: React.FC<EndSessionProps> = ({
               className="sr-only"
               onChange={() => {
                 setEnabled(!enabled);
+                onChange(!enabled);
               }}
             />
             <div className="h-3 w-9 rounded-full bg-meta-9 shadow-inner dark:bg-[#5A616B]"></div>
