@@ -31,7 +31,7 @@ const FormElements: React.FC<FormElementsProps> = ({
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
       <div className="flex flex-col gap-3 sm:col-span-12">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <TTS_Config />
+          <TTS_Config agent_id={agent_id} />
         </div>
       </div>
 
