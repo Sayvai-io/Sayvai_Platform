@@ -20,18 +20,20 @@ interface FormElementsProps {
     use_backchannels: boolean;
     end_conversation_on_goodbye: boolean;
   };
+  agent_name: string;
 }
 
 const FormElements: React.FC<FormElementsProps> = ({
   agent_id,
   llmConfig,
   sttConfig,
+  agent_name,
 }) => {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
       <div className="flex flex-col gap-3 sm:col-span-12">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <TTS_Config agent_id={agent_id} />
+          <TTS_Config agent_id={agent_id} agent_name={agent_name} />
         </div>
       </div>
 

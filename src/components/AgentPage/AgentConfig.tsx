@@ -22,12 +22,14 @@ interface AgentConfigProps {
     use_backchannels: boolean;
     end_conversation_on_goodbye: boolean;
   } | null;
+  agent_name: string;
 }
 
 const AgentConfig: React.FC<AgentConfigProps> = ({
   agent_id,
   llmConfig,
   sttConfig,
+  agent_name,
 }) => {
   return (
     <div className="col-span-12 rounded-sm px-0 pb-0 pt-0 shadow-default dark:border-strokedark sm:px-0 xl:col-span-9">
@@ -37,6 +39,7 @@ const AgentConfig: React.FC<AgentConfigProps> = ({
             agent_id={agent_id}
             llmConfig={llmConfig}
             sttConfig={sttConfig}
+            agent_name={agent_name}
           />
         ) : (
           <NoAgent />

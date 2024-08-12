@@ -13,9 +13,11 @@ import {
   useDisconnectButton,
   useLocalParticipant,
 } from "@livekit/components-react";
+import { BASE_URL } from "@/utils/constants";
 
 interface TTS_ConfigProps {
   agent_id: string;
+  agent_name: string;
 }
 
 const RoomMetadata = ({ connected, selectedAgent }) => {
@@ -30,16 +32,51 @@ const RoomMetadata = ({ connected, selectedAgent }) => {
   return null;
 };
 
-const TTS_Config: React.FC<TTS_ConfigProps> = ({ agent_id }) => {
+const TTS_Config: React.FC<TTS_ConfigProps> = ({ agent_id, agent_name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [voice, setVoice] = useState(false);
   const [token, setToken] = useState<string | undefined>(undefined);
   const [url, setUrl] = useState<string | undefined>(undefined);
   const [connected, setConnected] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState<string>(agent_id);
+  const [showAgentName, setShowAgentName] = useState(false);
+  const [inputValue, setInputValue] = useState(agent_name);
+  const [agentName, setAgentName] = useState(agent_name);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleEditName = () => {
+    setShowAgentName(!showAgentName);
+  };
+
+  const changeAgentName = async () => {
+    setShowAgentName(!showAgentName);
+    setAgentName(inputValue);
+    console.log(inputValue);
+    const session = localStorage.getItem("supabaseSession");
+    if (!session) {
+      console.error("No session found");
+      return;
+    }
+    const { access_token } = JSON.parse(session);
+    const response = await fetch(`${BASE_URL}/update_agent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+      body: JSON.stringify({ agent_id: agent_id, name: inputValue }),
+    });
+  };
+
+  const RevertBack = () => {
+    setShowAgentName(!showAgentName);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value); // Update the input value as the user types
+  };
 
   const handleTestCall = async () => {
     if (voice) {
@@ -60,7 +97,61 @@ const TTS_Config: React.FC<TTS_ConfigProps> = ({ agent_id }) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h3 className="font-bold">TTS Configuration</h3>
+        <div className="m-4 flex items-center sm:mb-0">
+          {!showAgentName ? (
+            <>
+              <span>{agentName}</span>
+              <svg
+                onClick={handleEditName}
+                viewBox="0 -960 960 960"
+                className="text-gray-700 h-6 w-6 cursor-pointer"
+              >
+                {" "}
+                <path d="M120-120v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm584-528 56-56-56-56-56 56 56 56Z" />{" "}
+              </svg>{" "}
+            </>
+          ) : (
+            <div className="align-center flex justify-center">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                className="border-gray-300 mr-2 w-full rounded-md border px-3 py-1 sm:w-auto"
+                placeholder="Enter the name"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="size-6 hover:cursor-pointer"
+                onClick={changeAgentName}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m4.5 12.75 6 6 9-13.5"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="size-6 hover:cursor-pointer"
+                onClick={RevertBack}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          )}
+        </div>
         <div className="flex gap-2">
           {/* <button className="flex items-center rounded-md bg-[#b8f5a8] px-1 py-1 text-white hover:bg-[#b8f5a8]">
             <svg

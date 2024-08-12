@@ -22,6 +22,7 @@ const AgentPage: React.FC = () => {
     end_conversation_on_goodbye: boolean;
   } | null>(null);
   const [agentId, setAgentId] = useState<string | null>(null); // Add agentId state
+  const [agentName, setAgentName] = useState<string | null>(null);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -41,6 +42,7 @@ const AgentPage: React.FC = () => {
           setLlmConfig={setLlmConfig}
           setSttConfig={setSttConfig}
           setAgentId={setAgentId} // Ensure agentId is set
+          setAgentName={setAgentName}
         />
         <AgentModal
           isOpen={isModalOpen}
@@ -52,6 +54,7 @@ const AgentPage: React.FC = () => {
             agent_id={agentId}
             llmConfig={llmConfig}
             sttConfig={sttConfig}
+            agent_name={agentName}
           />
         ) : (
           <NoAgent />

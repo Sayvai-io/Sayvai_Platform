@@ -23,6 +23,12 @@ interface AddAgentProps {
       end_conversation_on_goodbye: boolean;
     } | null>
   >;
+  setAgentId: React.SetStateAction<{
+    agentId: string;
+  } | null>;
+  setAgentName: React.SetStateAction<{
+    agentName: string;
+  } | null>;
 }
 
 const AddAgent: React.FC<AddAgentProps> = ({
@@ -31,6 +37,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
   setLlmConfig,
   setSttConfig,
   setAgentId, // Add setAgentId prop
+  setAgentName,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [agents, setAgents] = useState<{ id: string; name: string }[]>([]);
@@ -90,7 +97,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
     onCloseModal();
   };
 
-  const handleAgentClick = async (agentId: string) => {
+  const handleAgentClick = async (agentId: string, agent_name: string) => {
     try {
       const session = localStorage.getItem("supabaseSession");
       if (!session) {
@@ -143,6 +150,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
       setSttConfig({ use_backchannels, end_conversation_on_goodbye });
 
       setAgentId(agentId); // Set agentId
+      setAgentName(agent_name);
       onOpenAgentConfig();
     } catch (error) {
       console.error("Error fetching LLM configuration:", error);
@@ -177,7 +185,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
           {agents.map((agent, index) => (
             <button
               key={index}
-              onClick={() => handleAgentClick(agent.id)}
+              onClick={() => handleAgentClick(agent.id, agent.name)}
               className="mt-2 flex items-center rounded bg-[#70cac1] p-1.5 text-white"
               style={{
                 width: "180px",
