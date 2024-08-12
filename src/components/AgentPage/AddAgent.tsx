@@ -34,6 +34,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [agents, setAgents] = useState<{ id: string; name: string }[]>([]);
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -61,9 +62,28 @@ const AddAgent: React.FC<AddAgentProps> = ({
     };
 
     fetchAgents();
-  }, []);
+  }, [flag]);
 
-  const openModal = () => setIsModalOpen(true);
+  const AddNewAgent = async () => {
+    const session = localStorage.getItem("supabaseSession");
+    if (!session) {
+      throw new Error("No session found");
+    }
+    const { access_token } = JSON.parse(session);
+    const response = await fetch(`${BASE_URL}/create_agent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(`Error ${response.status}: ${errorData.message}`);
+      return;
+    }
+    setFlag(!flag);
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -133,7 +153,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-3">
       <div className="mb-4 h-full items-center justify-center gap-4">
         <button
-          onClick={openModal}
+          onClick={AddNewAgent}
           className="flex items-center rounded bg-[#70cac1] p-1.5 text-white"
         >
           <svg

@@ -133,35 +133,36 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
             </tr>
           </thead>
           <tbody>
-            {voices.map((voice) => (
-              <tr
-                key={voice.id}
-                className="cursor-pointer border-b"
-                onClick={() => handleVoiceChange(voice.id)}
-              >
-                <td className="flex items-center px-6 py-2">
-                  <span className="mr-2 h-10 w-10 rounded-full">
-                    <Image
-                      width={40}
-                      height={40}
-                      src={"/images/user/user-01.png"}
-                      alt="User"
-                      className="rounded-full"
-                    />
-                  </span>
-                  {voice.voice}
-                </td>
-                <td className="px-6 py-2">{voice.voice}</td>
-                <td className="px-6 py-2">
-                  {getLanguageName(voice.language_id)}
-                </td>
-                <td className="px-6 py-2">
-                  {currentVoiceId === voice.id && (
-                    <span className="text-green-500">&#10003;</span>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {voices.length > 0 &&
+              voices.map((voice) => (
+                <tr
+                  key={voice.id}
+                  className="cursor-pointer border-b"
+                  onClick={() => handleVoiceChange(voice.id)}
+                >
+                  <td className="flex items-center px-6 py-2">
+                    <span className="mr-2 h-10 w-10 rounded-full">
+                      <Image
+                        width={40}
+                        height={40}
+                        src={"/images/user/user-01.png"}
+                        alt="User"
+                        className="rounded-full"
+                      />
+                    </span>
+                    {voice.voice}
+                  </td>
+                  <td className="px-6 py-2">{voice.voice}</td>
+                  <td className="px-6 py-2">
+                    {getLanguageName(voice.language_id)}
+                  </td>
+                  <td className="px-6 py-2">
+                    {currentVoiceId === voice.id && (
+                      <span className="text-green-500">&#10003;</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
