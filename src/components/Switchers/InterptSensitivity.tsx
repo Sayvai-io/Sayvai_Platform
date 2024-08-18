@@ -1,6 +1,6 @@
 // src/components/Switchers/InterptSensitivity.tsx
 
-import React from "react";
+import React, { useEffect } from "react";
 
 interface InterptSensitivityProps {
   interrupt_sensitivity: string;

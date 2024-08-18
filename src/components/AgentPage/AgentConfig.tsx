@@ -12,6 +12,7 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 
 interface AgentConfigProps {
   agent_id: string; // Add agent_id here
+  agent_name: string;
   llmConfig: {
     initial_message: string;
     prompt_preamble: string;
@@ -22,7 +23,6 @@ interface AgentConfigProps {
     use_backchannels: boolean;
     end_conversation_on_goodbye: boolean;
   } | null;
-  agent_name: string;
 }
 
 const AgentConfig: React.FC<AgentConfigProps> = ({

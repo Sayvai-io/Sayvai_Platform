@@ -7,8 +7,12 @@ import AgentModal from "@/components/Model/AgentModel";
 import { BASE_URL } from "@/utils/constants";
 
 interface AddAgentProps {
+  flag: boolean;
   onCloseModal: () => void;
   onOpenAgentConfig: () => void;
+  setAgentId: React.Dispatch<React.SetStateAction<string | null>>;
+  setAgentName: React.Dispatch<React.SetStateAction<string | null>>;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
   setLlmConfig: React.Dispatch<
     React.SetStateAction<{
       initial_message: string;
@@ -23,12 +27,17 @@ interface AddAgentProps {
       end_conversation_on_goodbye: boolean;
     } | null>
   >;
-  setAgentId: React.SetStateAction<{
-    agentId: string;
-  } | null>;
-  setAgentName: React.SetStateAction<{
-    agentName: string;
-  } | null>;
+  // setAgentId: React.Dispatch<
+  //   React.SetStateAction<{
+  //     agentId: string;
+  //   } | null>
+  // >;
+  // setAgentName: React.SetStateAction<{
+  //   agentName: string;
+  // } | null>;
+  // setFlag: React.SetStateAction<{
+  //   flag: boolean;
+  // } | null>;
 }
 
 const AddAgent: React.FC<AddAgentProps> = ({
@@ -38,10 +47,11 @@ const AddAgent: React.FC<AddAgentProps> = ({
   setSttConfig,
   setAgentId, // Add setAgentId prop
   setAgentName,
+  flag,
+  setFlag,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [agents, setAgents] = useState<{ id: string; name: string }[]>([]);
-  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     const fetchAgents = async () => {

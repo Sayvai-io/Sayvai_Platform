@@ -29,6 +29,8 @@ const FormElements: React.FC<FormElementsProps> = ({
   sttConfig,
   agent_name,
 }) => {
+  console.log(llmConfig);
+  console.log(sttConfig);
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
       <div className="flex flex-col gap-3 sm:col-span-12">
@@ -51,7 +53,7 @@ const FormElements: React.FC<FormElementsProps> = ({
         </div>
 
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <Stt_Config agent_id={agent_id} sttConfig={sttConfig} />
+          <Stt_Config agent_id={agent_id} {...sttConfig} />
         </div>
       </div>
     </div>

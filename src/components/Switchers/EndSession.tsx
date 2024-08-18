@@ -11,6 +11,10 @@ const EndSession: React.FC<EndSessionProps> = ({
 }) => {
   const [enabled, setEnabled] = useState(end_conversation_on_goodbye);
 
+  useEffect(() => {
+    setEnabled(end_conversation_on_goodbye);
+  }, [end_conversation_on_goodbye]);
+
   return (
     <div className="flex items-center justify-between">
       <h6 className="text-sm font-bold">End Session With Goodbye</h6>

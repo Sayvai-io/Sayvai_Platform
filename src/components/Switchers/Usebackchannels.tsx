@@ -12,6 +12,10 @@ const Usebackchannels: React.FC<UsebackchannelsProps> = ({
   const [enabled, setEnabled] = useState(use_backchannels);
   const [optOut, setOptOut] = useState(false); // New state variable
 
+  useEffect(() => {
+    setEnabled(use_backchannels);
+  }, [use_backchannels]);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">

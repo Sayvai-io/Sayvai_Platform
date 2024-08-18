@@ -19,21 +19,35 @@ interface LLMConfigProps {
 
 const LLMConfig: React.FC<LLMConfigProps> = ({
   agent_id,
-  initial_message: initialMessageProp,
-  prompt_preamble: promptPreambleProp,
+  initial_message,
+  prompt_preamble,
   llm_model_id,
   model_name,
-  use_backchannel: useBackchannelProp,
-  end_session_with_goodbye: endSessionWithGoodbyeProp,
+  use_backchannel,
+  end_session_with_goodbye,
 }) => {
-  const [initialMessage, setInitialMessage] = useState(initialMessageProp);
-  const [promptPreamble, setPromptPreamble] = useState(promptPreambleProp);
+  const [initialMessage, setInitialMessage] = useState(initial_message);
+  const [promptPreamble, setPromptPreamble] = useState(prompt_preamble);
   const [selectedModel, setSelectedModel] = useState(llm_model_id);
-  const [useBackchannel, setUseBackchannel] = useState(useBackchannelProp);
+  const [useBackchannel, setUseBackchannel] = useState(use_backchannel);
   const [endSessionWithGoodbye, setEndSessionWithGoodbye] = useState(
-    endSessionWithGoodbyeProp,
+    end_session_with_goodbye,
   );
   const [isDirty, setIsDirty] = useState(false);
+
+  useEffect(() => {
+    setInitialMessage(initial_message);
+    setPromptPreamble(prompt_preamble);
+    setSelectedModel(llm_model_id);
+    setUseBackchannel(use_backchannel);
+    setEndSessionWithGoodbye(end_session_with_goodbye);
+  }, [
+    initial_message,
+    prompt_preamble,
+    llm_model_id,
+    use_backchannel,
+    end_session_with_goodbye,
+  ]);
 
   const updateConfig = async () => {
     try {

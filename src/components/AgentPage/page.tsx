@@ -23,6 +23,7 @@ const AgentPage: React.FC = () => {
   } | null>(null);
   const [agentId, setAgentId] = useState<string | null>(null); // Add agentId state
   const [agentName, setAgentName] = useState<string | null>(null);
+  const [flag, setFlag] = useState(false);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -43,6 +44,8 @@ const AgentPage: React.FC = () => {
           setSttConfig={setSttConfig}
           setAgentId={setAgentId} // Ensure agentId is set
           setAgentName={setAgentName}
+          flag={flag}
+          setFlag={setFlag}
         />
         <AgentModal
           isOpen={isModalOpen}
