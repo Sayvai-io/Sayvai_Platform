@@ -24,6 +24,7 @@ const AgentPage: React.FC = () => {
   const [agentId, setAgentId] = useState<string | null>(null); // Add agentId state
   const [agentName, setAgentName] = useState<string | null>(null);
   const [flag, setFlag] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -46,6 +47,7 @@ const AgentPage: React.FC = () => {
           setAgentName={setAgentName}
           flag={flag}
           setFlag={setFlag}
+          setLoading={setLoading}
         />
         <AgentModal
           isOpen={isModalOpen}
@@ -58,6 +60,7 @@ const AgentPage: React.FC = () => {
             llmConfig={llmConfig}
             sttConfig={sttConfig}
             agent_name={agentName}
+            loading={loading}
           />
         ) : (
           <NoAgent />

@@ -13,6 +13,7 @@ interface AddAgentProps {
   setAgentId: React.Dispatch<React.SetStateAction<string | null>>;
   setAgentName: React.Dispatch<React.SetStateAction<string | null>>;
   setFlag: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setLlmConfig: React.Dispatch<
     React.SetStateAction<{
       initial_message: string;
@@ -49,6 +50,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
   setAgentName,
   flag,
   setFlag,
+  setLoading,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [agents, setAgents] = useState<{ id: string; name: string }[]>([]);
@@ -108,6 +110,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
   };
 
   const handleAgentClick = async (agentId: string, agent_name: string) => {
+    setLoading(true);
     try {
       const session = localStorage.getItem("supabaseSession");
       if (!session) {
@@ -127,6 +130,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
       if (!response.ok) {
         const errorData = await response.json();
         console.error(`Error ${response.status}: ${errorData.message}`);
+        setLoading(false);
         return;
       }
 
@@ -162,7 +166,9 @@ const AddAgent: React.FC<AddAgentProps> = ({
       setAgentId(agentId); // Set agentId
       setAgentName(agent_name);
       onOpenAgentConfig();
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching LLM configuration:", error);
     }
   };
