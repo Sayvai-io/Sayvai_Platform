@@ -26,6 +26,7 @@ interface AddAgentProps {
     React.SetStateAction<{
       use_backchannels: boolean;
       end_conversation_on_goodbye: boolean;
+      interrupt_sensitivity: string;
     } | null>
   >;
   // setAgentId: React.Dispatch<
@@ -141,6 +142,7 @@ const AddAgent: React.FC<AddAgentProps> = ({
         llm_model_id,
         use_backchannels,
         end_conversation_on_goodbye,
+        interrupt_sensitivity,
       } = configData;
 
       const modelResponse = await fetch(`${BASE_URL}/get_models`, {
@@ -161,7 +163,11 @@ const AddAgent: React.FC<AddAgentProps> = ({
         model_name: model ? model.name : "Unknown",
       });
 
-      setSttConfig({ use_backchannels, end_conversation_on_goodbye });
+      setSttConfig({
+        use_backchannels,
+        end_conversation_on_goodbye,
+        interrupt_sensitivity,
+      });
 
       setAgentId(agentId); // Set agentId
       setAgentName(agent_name);

@@ -1,6 +1,6 @@
 // src/components/Switchers/InterptSensitivity.tsx
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface InterptSensitivityProps {
   interrupt_sensitivity: string;
@@ -11,7 +11,15 @@ const InterptSensitivity: React.FC<InterptSensitivityProps> = ({
   interrupt_sensitivity,
   onChange,
 }) => {
+  const [inter_sensitivity, setInterSensitivity] = useState(
+    interrupt_sensitivity,
+  );
+
+  useEffect(() => {
+    setInterSensitivity(interrupt_sensitivity);
+  }, [interrupt_sensitivity]);
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setInterSensitivity(event.target.value);
     onChange(event.target.value);
   };
 
@@ -21,7 +29,7 @@ const InterptSensitivity: React.FC<InterptSensitivityProps> = ({
         Interrupt Sensitivity
       </label>
       <select
-        value={interrupt_sensitivity}
+        value={inter_sensitivity}
         onChange={handleChange}
         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-[#16C3A6] active:border-[#16C3A6] dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-[#16C3A6]"
       >

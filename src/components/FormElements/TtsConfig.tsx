@@ -18,6 +18,7 @@ import { BASE_URL } from "@/utils/constants";
 interface TTS_ConfigProps {
   agent_id: string;
   agent_name: string;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RoomMetadata = ({ connected, selectedAgent }) => {
@@ -32,7 +33,11 @@ const RoomMetadata = ({ connected, selectedAgent }) => {
   return null;
 };
 
-const TTS_Config: React.FC<TTS_ConfigProps> = ({ agent_id, agent_name }) => {
+const TTS_Config: React.FC<TTS_ConfigProps> = ({
+  agent_id,
+  agent_name,
+  setFlag,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [voice, setVoice] = useState(false);
   const [token, setToken] = useState<string | undefined>(undefined);
@@ -68,6 +73,7 @@ const TTS_Config: React.FC<TTS_ConfigProps> = ({ agent_id, agent_name }) => {
       },
       body: JSON.stringify({ agent_id: agent_id, name: inputValue }),
     });
+    setFlag((prevState) => !prevState);
   };
 
   const RevertBack = () => {
@@ -168,7 +174,7 @@ const TTS_Config: React.FC<TTS_ConfigProps> = ({ agent_id, agent_name }) => {
           </button> */}
         </div>
       </div>
-      <p className="mb-4 mr-2 mt-2 text-sm">Agent ID: {agent_id}</p>
+      <p className="mb-4 ml-4 mr-2 mt-2 text-sm">Agent ID: {agent_id}</p>
       <div className="flex justify-between p-2">
         <div>
           <Link

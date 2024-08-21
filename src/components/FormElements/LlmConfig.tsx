@@ -107,7 +107,7 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
       <h2 className="text-2xl font-bold">LLM Configuration</h2>
       <p className="text-xs">Model Name: {model_name}</p>
       <p className="text-xs">LLM Model ID: {llm_model_id}</p>
-      <div className="flex flex-col gap-5.5 p-6.5">
+      <div className="pr-.5 flex flex-col gap-5.5 pb-6.5 pr-6.5 pt-6.5">
         <div>
           <label className="text-md mb-3 block font-medium text-black dark:text-white">
             Initial Message

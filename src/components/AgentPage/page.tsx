@@ -20,6 +20,7 @@ const AgentPage: React.FC = () => {
   const [sttConfig, setSttConfig] = useState<{
     use_backchannels: boolean;
     end_conversation_on_goodbye: boolean;
+    interrupt_sensitivity: string;
   } | null>(null);
   const [agentId, setAgentId] = useState<string | null>(null); // Add agentId state
   const [agentName, setAgentName] = useState<string | null>(null);
@@ -61,6 +62,7 @@ const AgentPage: React.FC = () => {
             sttConfig={sttConfig}
             agent_name={agentName}
             loading={loading}
+            setFlag={setFlag}
           />
         ) : (
           <NoAgent />

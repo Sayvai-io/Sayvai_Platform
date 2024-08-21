@@ -24,7 +24,9 @@ interface AgentConfigProps {
   sttConfig: {
     use_backchannels: boolean;
     end_conversation_on_goodbye: boolean;
+    interrupt_sensitivity: string;
   } | null;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AgentConfig: React.FC<AgentConfigProps> = ({
@@ -33,6 +35,7 @@ const AgentConfig: React.FC<AgentConfigProps> = ({
   sttConfig,
   agent_name,
   loading,
+  setFlag,
 }) => {
   return (
     <div className="col-span-12 rounded-sm px-0 pb-0 pt-0 shadow-default dark:border-strokedark sm:px-0 xl:col-span-9">
@@ -48,6 +51,7 @@ const AgentConfig: React.FC<AgentConfigProps> = ({
               llmConfig={llmConfig}
               sttConfig={sttConfig}
               agent_name={agent_name}
+              setFlag={setFlag}
             />
           ) : (
             <NoAgent />

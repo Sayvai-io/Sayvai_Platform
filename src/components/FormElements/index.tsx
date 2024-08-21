@@ -19,8 +19,10 @@ interface FormElementsProps {
   sttConfig: {
     use_backchannels: boolean;
     end_conversation_on_goodbye: boolean;
+    interrupt_sensitivity: string;
   };
   agent_name: string;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FormElements: React.FC<FormElementsProps> = ({
@@ -28,6 +30,7 @@ const FormElements: React.FC<FormElementsProps> = ({
   llmConfig,
   sttConfig,
   agent_name,
+  setFlag,
 }) => {
   console.log(llmConfig);
   console.log(sttConfig);
@@ -35,12 +38,16 @@ const FormElements: React.FC<FormElementsProps> = ({
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
       <div className="flex flex-col gap-3 sm:col-span-12">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <TTS_Config agent_id={agent_id} agent_name={agent_name} />
+          <TTS_Config
+            agent_id={agent_id}
+            agent_name={agent_name}
+            setFlag={setFlag}
+          />
         </div>
       </div>
 
       <div className="flex flex-col gap-3 sm:col-span-8">
-        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <LLm_Config agent_id={agent_id} {...llmConfig} />
         </div>
       </div>
