@@ -212,13 +212,36 @@ const TTS_Config: React.FC<TTS_ConfigProps> = ({
             onClose={closeModal}
           />
         </div>
-        <div>
-          <button
-            onClick={handleTestCall}
-            className="rounded-full border-2 border-green-500 p-2 font-semibold  text-graydark hover:border-graydark hover:bg-green-500"
-          >
-            {!voice ? <span>Test Call</span> : <span>End Call</span>}
-          </button>
+        <div className="flex items-center">
+          {voice ? (
+            <div onClick={handleTestCall}>
+              <Image
+                className="cursor-pointer"
+                width={50}
+                height={100}
+                src={"/images/call/call_end.gif"}
+                alt="Call-End"
+              />
+            </div>
+          ) : (
+            <div onClick={handleTestCall}>
+              <Image
+                className="cursor-pointer"
+                width={50}
+                height={100}
+                src={"/images/call/call_start.gif"}
+                alt="Call-Start"
+              />
+            </div>
+          )}
+          <div>
+            <button
+              onClick={handleTestCall}
+              className={`${voice ? "border-red hover:bg-red" : "border-green-500 hover:bg-green-500"} rounded-full border-2  p-2 font-semibold text-graydark hover:border-graydark  hover:text-white dark:text-white`}
+            >
+              {!voice ? <span>Test Call</span> : <span>End Call</span>}
+            </button>
+          </div>
         </div>
       </div>
       {voice && (
