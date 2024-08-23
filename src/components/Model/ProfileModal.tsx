@@ -99,7 +99,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
 
   const getLanguageName = (languageId: string) => {
     const language = languages.find((lang) => lang.id === languageId);
-    console.log("Language ID:", languageId, "Language Name:", language?.name);
     return language ? language.language : "Unknown";
   };
 

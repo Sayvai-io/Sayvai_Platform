@@ -13,8 +13,6 @@ interface LLMConfigProps {
   prompt_preamble: string;
   llm_model_id: string;
   model_name: string;
-  use_backchannel: boolean;
-  end_session_with_goodbye: boolean;
 }
 
 const LLMConfig: React.FC<LLMConfigProps> = ({
@@ -23,31 +21,18 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
   prompt_preamble,
   llm_model_id,
   model_name,
-  use_backchannel,
-  end_session_with_goodbye,
 }) => {
   const [initialMessage, setInitialMessage] = useState(initial_message);
   const [promptPreamble, setPromptPreamble] = useState(prompt_preamble);
   const [selectedModel, setSelectedModel] = useState(llm_model_id);
-  const [useBackchannel, setUseBackchannel] = useState(use_backchannel);
-  const [endSessionWithGoodbye, setEndSessionWithGoodbye] = useState(
-    end_session_with_goodbye,
-  );
+
   const [isDirty, setIsDirty] = useState(false);
 
   useEffect(() => {
     setInitialMessage(initial_message);
     setPromptPreamble(prompt_preamble);
     setSelectedModel(llm_model_id);
-    setUseBackchannel(use_backchannel);
-    setEndSessionWithGoodbye(end_session_with_goodbye);
-  }, [
-    initial_message,
-    prompt_preamble,
-    llm_model_id,
-    use_backchannel,
-    end_session_with_goodbye,
-  ]);
+  }, [initial_message, prompt_preamble, llm_model_id]);
 
   const updateConfig = async () => {
     try {
@@ -61,8 +46,6 @@ const LLMConfig: React.FC<LLMConfigProps> = ({
         initial_message: initialMessage,
         prompt_preamble: promptPreamble,
         llm_model_id: selectedModel,
-        use_backchannel: useBackchannel,
-        end_session_with_goodbye: endSessionWithGoodbye,
       };
 
       await fetch(`${BASE_URL}/change_llm_configurations`, {

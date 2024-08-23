@@ -1,11 +1,7 @@
 // src/components/FormElements/SttConfig.tsx
 
 "use client";
-import SwitcherFour from "../Switchers/SwitcherFour";
-import VoiceTemperature from "../Switchers/VoiceTemperature";
-import SwitcherThree from "../Switchers/SwitcherThree";
-import SwitcherTwo from "../Switchers/SwitcherTwo";
-import React, { useDebugValue, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Usebackchannels from "../Switchers/Usebackchannels";
 import EndSession from "../Switchers/EndSession";
 import InterptSensitivity from "../Switchers/InterptSensitivity";
@@ -17,8 +13,6 @@ interface Stt_ConfigProps {
   use_backchannels: boolean;
   end_conversation_on_goodbye: boolean;
   interrupt_sensitivity: string;
-  language: string;
-  language_id: string;
 }
 
 const Stt_Config: React.FC<Stt_ConfigProps> = ({
@@ -26,8 +20,6 @@ const Stt_Config: React.FC<Stt_ConfigProps> = ({
   use_backchannels,
   end_conversation_on_goodbye,
   interrupt_sensitivity,
-  language,
-  language_id,
 }) => {
   const [useBackchannels, setUseBackchannels] = useState(use_backchannels);
   const [endConversationOnGoodbye, setEndConversationOnGoodbye] = useState(
@@ -36,23 +28,13 @@ const Stt_Config: React.FC<Stt_ConfigProps> = ({
   const [interruptSensitivity, setInterruptSensitivity] = useState(
     interrupt_sensitivity,
   );
-  const [languages, setLanguages] = useState(language);
-  const [languageId, setLanguageId] = useState(language_id);
   const [isDirty, setIsDirty] = useState(false);
 
   useEffect(() => {
     setUseBackchannels(use_backchannels);
     setEndConversationOnGoodbye(end_conversation_on_goodbye);
     setInterruptSensitivity(interrupt_sensitivity);
-    setLanguages(language);
-    setLanguageId(language_id);
-  }, [
-    use_backchannels,
-    end_conversation_on_goodbye,
-    interrupt_sensitivity,
-    language,
-    language_id,
-  ]);
+  }, [use_backchannels, end_conversation_on_goodbye, interrupt_sensitivity]);
 
   const handleUseBackchannelsChange = (newValue: boolean) => {
     setUseBackchannels(newValue);
@@ -70,8 +52,6 @@ const Stt_Config: React.FC<Stt_ConfigProps> = ({
   };
 
   const handleLanguageChange = (newValue: { id: string; name: string }) => {
-    setLanguages(newValue.name);
-    setLanguageId(newValue.id);
     setIsDirty(true);
   };
 
@@ -95,19 +75,6 @@ const Stt_Config: React.FC<Stt_ConfigProps> = ({
       }
 
       // Update language
-      if (languageId !== language_id) {
-        await fetch(`${BASE_URL}/update_stt_configuration`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`,
-          },
-          body: JSON.stringify({
-            agent_id,
-            new_config: { language_id: languageId },
-          }),
-        });
-      }
 
       // Update other configurations
       if (Object.keys(newConfig).length > 0) {

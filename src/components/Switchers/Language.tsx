@@ -53,7 +53,8 @@ const Language: React.FC<LanguageProps> = ({ agent_id, onChange }) => {
         });
         const agentData = await agentResponse.json();
         const agentLanguage = languageList.find(
-          (lang) => lang.id === agentData.language_id,
+          (lang: { id: string; name: string }) =>
+            lang.id === agentData.language_id,
         );
         if (agentLanguage) {
           setSelectedLanguage(agentLanguage);
