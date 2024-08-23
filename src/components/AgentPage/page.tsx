@@ -60,7 +60,7 @@ const AgentPage: React.FC = () => {
             agent_id={agentId}
             llmConfig={llmConfig}
             sttConfig={sttConfig}
-            agent_name={agentName}
+            agent_name={agentName ?? ""}
             loading={loading}
             setFlag={setFlag}
           />
