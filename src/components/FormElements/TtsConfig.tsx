@@ -21,7 +21,15 @@ interface TTS_ConfigProps {
   setFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RoomMetadata = ({ connected, selectedAgent }) => {
+interface RoomMetadataProps {
+  connected: boolean;
+  selectedAgent: string;
+}
+
+const RoomMetadata: React.FC<RoomMetadataProps> = ({
+  connected,
+  selectedAgent,
+}) => {
   const localParticipant = useLocalParticipant();
   useEffect(() => {
     if (connected) {
@@ -32,7 +40,6 @@ const RoomMetadata = ({ connected, selectedAgent }) => {
   }, [connected, selectedAgent]);
   return null;
 };
-
 const TTS_Config: React.FC<TTS_ConfigProps> = ({
   agent_id,
   agent_name,
