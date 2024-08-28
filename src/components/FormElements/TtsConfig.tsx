@@ -99,12 +99,12 @@ const TTS_Config: React.FC<TTS_ConfigProps> = ({
       setConnected(false);
     } else {
       setVoice(true);
-      const { accessToken, url } = await fetch("/api/token").then((res) =>
-        res.json(),
-      );
-      setToken(accessToken);
-      setUrl(url);
     }
+    const { accessToken, url } = await fetch("/api/token").then((res) =>
+      res.json(),
+    );
+    setToken(accessToken);
+    setUrl(url);
   };
 
   return (
